@@ -2,15 +2,18 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class HaveEffect
+public class RunEffect
 {
-    public Armor def;
+    public Defender def;
+    public Buff buf;
     public Effect endturneffect;
     public Effect AddEffect(Effect input,Effect link)
     {
-        
-
-        if (link==null)
+        if  (input==null) 
+        {
+            return link;
+        }
+        else if (link==null)
         {
             link=input;
         }
@@ -36,19 +39,42 @@ public class HaveEffect
     }
 
 
-    public int Defense(int Damage)
+    public int Defense(int Damage,int D)
     {
         
-        Armor temp =def;
+        Defender temp =def;
 
         while(temp != null)
         {
-            Damage=temp.Defense(Damage);
+            Damage=temp.Defense(Damage,D);
             Effect disposer=temp;
-            temp=(Armor)temp.next;
+            temp=(Defender)temp.next;
             if (disposer.check())
             {
                 def=null;
+                break;
+            }
+            
+            
+        }
+        
+        return Damage;
+    }
+
+
+    public int RunBuff(int Damage)
+    {
+        
+        Buff temp =buf;
+
+        while(temp != null)
+        {
+            Damage=temp.Buf(Damage);
+            Effect disposer=temp;
+            temp=(Buff)temp.next;
+            if (disposer.check())
+            {
+                buf=null;
                 break;
             }
             

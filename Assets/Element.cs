@@ -2,17 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Element : MonoBehaviour
+public class Element 
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    private int e;
 
-    // Update is called once per frame
-    void Update()
+    public Element(int i)
     {
-        
+        e=i;
+    }
+    public int element()
+    {
+        return e;
     }
 }

@@ -2,11 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Character:HaveEffect
+public class Character:RunEffect
 {   
-    public Effect endturneffect;
+    
     public string name;
     
+    public Element element;
     public int maxHp;
     public int hp;
     public Skill[] skill;
@@ -14,9 +15,9 @@ public class Character:HaveEffect
     
     
     
-    public void AddArmor(Armor armor)
+    public void AddDefender(Defender Defender)
     {
-        def=(Armor)this.AddEffect(armor,def);
+        def=(Defender)this.AddEffect(Defender,def);
     }
 
   
@@ -36,7 +37,7 @@ public class Diona:Character
         skill[1] = new Skill(2,1);
         skill[2] = new Skill(1,2);
         //tag=0 普通攻擊 tag=1 元素戰技 tag=2 元素爆發
-        skill[1].SetArmor(new Armor("貓爪護盾",1));
+        skill[1].SetDefender(new Armor("貓爪護盾",1));
     }
 }
 

@@ -2,17 +2,21 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Player:HaveEffect
+public class Player:RunEffect
 {
-
     public Character[] characters;
     public int index = 0;
+
+    public SummonList summons= new SummonList();
     
 
     public Character character()
     {
         return characters[index];
     }
+
+
+    
     
    
     
@@ -30,9 +34,9 @@ public class Player:HaveEffect
         characters[0]=c;
         def=null;
     }
-    public void AddArmor(Armor armor)
+    public void AddDefender(Defender Defender)
     {
-        def=(Armor)this.AddEffect(armor,def);
+        def=(Defender)this.AddEffect(Defender,def);
         
     }
   

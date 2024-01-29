@@ -35,6 +35,7 @@ public class Effect
         Effect temp=this;
         while (temp.next!= null)
         {
+            
             temp=temp.next;
         }
         temp.next=e;
@@ -49,5 +50,18 @@ public class Effect
 
         
         
+    }
+
+    public Effect Override(Effect e,Effect rot)
+    {
+        if (next!=null)
+            next.prev=e;
+        if (prev!=null)
+            prev.next=e;
+        if (next==null && prev==null)
+        {
+            rot=e;
+        }
+        return rot;
     }
 }
