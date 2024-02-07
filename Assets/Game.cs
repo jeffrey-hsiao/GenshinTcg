@@ -35,9 +35,9 @@ public class Game : MonoBehaviour
         Character attacker=p1.character();
         Character attacked=p2.character();
         //取得技能
-        Skill act=attacker.skill[i];
+        CharacterSkill act=attacker.CharacterSkill[i];
         
-        Attack(act,attacked,attacker,p1,p2);
+        Attack(act,p1,p2);
            
     }
     public int DamageOperation(Player p1,Player p2,int Damage)
@@ -64,9 +64,11 @@ public class Game : MonoBehaviour
         Damage=(p2).summons.Defense(Damage,D);
         return Damage;
     }
-    public void Attack(Skill act,Character attacked,Character attacker,Player p1,Player p2)
+    public void Attack(Skill act,Player p1,Player p2)
     {
-        
+        //紀錄攻擊者
+        Character attacker=p1.character();
+        Character attacked=p2.character();
         int Damage=act.atk;
         //反映生效
         Damage=ElementBuff(act.element,attacked,p1)+Damage;
@@ -129,13 +131,20 @@ public class Game : MonoBehaviour
         //element 無元素 0 火1 水2 冰3 雷4 岩5 風6 草7 冰草8 草冰9 凍結10
         return 0;
     }
-    public void SummonAttack(Player attacked,Player attacker,Summons s)
+    public void SummonAttack(Player p1,Player p2,Summons s)
     {
-        int Damage=s.Damage;
+        int Damage=s.GetAtk();
         //反映生效
-        Damage=ElementBuff(s.element,attacked,p1)+Damage;
-        Damage=DamageOperation(attacker,attacked,Damage);
-        attacked.character().hp=attacked.character().hp-Damage;
+        Summons temp = s;
+
+        while (s!=null)
+        {
+            Attack(temp.skill,p1,p2);
+            temp.time = temp.time-1;
+            temp=(Summons)temp.next;
+        }
+        
+        
     }
 
     // Update is called once per frame

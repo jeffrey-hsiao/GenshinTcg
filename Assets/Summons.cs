@@ -11,7 +11,7 @@ public class SummonList:RunEffect
     }
     public Summons summons;
     public int num_of_summons=0;
-    public GetInit()
+    public Summons GetInit()
     {
         return summons;
     }
@@ -50,21 +50,21 @@ public class SummonList:RunEffect
 
 public class Summons:Effect
 {
-    public int Damage;
+    
     public int time; 
-    public Element element;
-
-    public Defender Defender;
-    public Buff buff;
+    public Skill skill;
     public Defender GetDefender()
     {
-        return Defender;
+        return skill.defender;
     }
     public Buff GetBuff()
     {
-        return buff;
+        return skill.buff;
     }
-    
+    public int GetAtk()
+    {
+        return skill.atk;
+    }
 }
 
 public class MonaESummons:Summons
@@ -73,11 +73,10 @@ public class MonaESummons:Summons
     
     public MonaESummons()
     {
+        skill=new Skill(1,4);
+        skill.element=new Element(2);
         
-        element=new Element(2);
-        time=1;
-        Attack=1;
-        Defender = new Reduce("虛影",1,1);
+        skill.defender = new Reduce("虛影",1,1);
         
 
     }
