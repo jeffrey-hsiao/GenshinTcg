@@ -42,6 +42,21 @@ public class SummonList:RunEffect
         return 1;
 
     }
+    public void Delete(int d)
+    {
+        if (d==0)
+        {
+            summons.Selfdelete();
+            summons.next.prev=null;
+
+            summons=(Summons)summons.next;
+
+        }
+        else
+        {
+            summons.check();
+        }
+    }
    
 
 
@@ -64,6 +79,11 @@ public class Summons:Effect
     public int GetAtk()
     {
         return skill.atk;
+    }
+    public void Selfdelete()
+    {
+        skill.defender.dur=-1;
+        skill.buff.dur=-1;
     }
 }
 

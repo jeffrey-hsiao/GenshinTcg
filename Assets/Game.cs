@@ -131,17 +131,29 @@ public class Game : MonoBehaviour
         //element 無元素 0 火1 水2 冰3 雷4 岩5 風6 草7 冰草8 草冰9 凍結10
         return 0;
     }
-    public void SummonAttack(Player p1,Player p2,Summons s)
+    public void SummonAttack(Player p1,Player p2,SummonList SL)
     {
-        int Damage=s.GetAtk();
+        
         //反映生效
-        Summons temp = s;
-
-        while (s!=null)
+        Summons temp = SL.summons;
+        int index=0;
+        while (temp!=null)
         {
             Attack(temp.skill,p1,p2);
-            temp.time = temp.time-1;
+            Summons disposer=temp;
+            temp.dur= temp.dur-1;
+            
             temp=(Summons)temp.next;
+            if (temp.dur<=0)
+            {
+                SL.Delete(index);
+                SL.RunBuff(0);
+                SL.Defense(0,0);
+                index++;
+            }
+            
+            
+            
         }
         
         
