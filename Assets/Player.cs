@@ -5,14 +5,17 @@ using UnityEngine;
 public class Player:RunEffect
 {
     public Character[] characters;
-    public int index = 0;
-
+    public Character MainCharacter;
     public SummonList summons= new SummonList();
     
 
     public Character character()
     {
-        return characters[index];
+        return  MainCharacter;
+    }
+    public void SetMainCharacter(Character character)
+    {
+        MainCharacter=character;
     }
 
 
@@ -23,16 +26,12 @@ public class Player:RunEffect
 
     public Player(Character[] c)
     {
-        index = 0;
         characters=c;
-        def=null;
     }
     public Player(Character c)
     {
         characters = new Character[1];
-        index = 0;
         characters[0]=c;
-        def=null;
     }
     public void AddDefender(Defender Defender)
     {

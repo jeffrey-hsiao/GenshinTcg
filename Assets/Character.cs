@@ -4,7 +4,9 @@ using UnityEngine;
 
 public class Character:RunEffect
 {   
-    
+    public Character next;
+
+    public Character prev;
     public string name;
     
     public Element element;

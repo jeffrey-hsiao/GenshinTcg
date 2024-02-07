@@ -17,51 +17,60 @@ public class Game : MonoBehaviour
         Character mona = new Mona();
         p1 = new Player(diona);
         p2 = new Player(mona);
-        Attack(p2,p1,1);
+        Act(p2,p1,1);
         Debug.Log(diona.hp);
-        Attack(p1,p2,1);
+        Act(p1,p2,1);
         Debug.Log(mona.hp);
-        Attack(p2,p1,1);
+        Act(p2,p1,1);
         Debug.Log(diona.hp);
-        Attack(p2,p1,1);
+        Act(p2,p1,1);
         Debug.Log(diona.hp);
 
 
     }
-    public void Attack(Player p1,Player p2,int i)
+    public void Act(Player p1,Player p2,int i)
     {
-        int Damage;
-        int D;
+        
         //紀錄攻擊者
         Character attacker=p1.character();
         Character attacked=p2.character();
-
         //取得技能
         Skill act=attacker.skill[i];
-        //取得攻擊力
-        Damage=act.atk;
-        D=Damage;
-
-        //反映生效
-        Damage=ElementBuff(act.element,attacked,p1)+Damage;
         
-        
-
-
-
+        Attack(act,attacked,attacker,p1,p2);
+           
+    }
+    public int DamageOperation(Player p1,Player p2,int Damage)
+    {
         //增傷buff結算
-        Damage=(p2).character().RunBuff(Damage);
-        Damage=(p2).RunBuff(Damage);
-        Damage=(p2).summons.RunBuff(Damage);
+        AttackerOperation(p1,Damage);
         
         //防禦類效果結算
+        AttackedOperation(p2,Damage);
+        return Damage;
+    }
+    public int AttackerOperation(Player p1,int Damage)
+    {
+        Damage=(p1).character().RunBuff(Damage);
+        Damage=(p1).RunBuff(Damage);
+        Damage=(p1).summons.RunBuff(Damage);
+        return Damage;
+    }
+    public int AttackedOperation(Player p2,int Damage)
+    {
+        int D = Damage;
         Damage=(p2).character().Defense(Damage,D);
         Damage=(p2).Defense(Damage,D);
         Damage=(p2).summons.Defense(Damage,D);
+        return Damage;
+    }
+    public void Attack(Skill act,Character attacked,Character attacker,Player p1,Player p2)
+    {
         
-        
-
-
+        int Damage=act.atk;
+        //反映生效
+        Damage=ElementBuff(act.element,attacked,p1)+Damage;
+        Damage=DamageOperation(p1,p2,Damage);
         //傷害生效
         attacked.hp =attacked.hp -Damage ;
 
@@ -101,19 +110,8 @@ public class Game : MonoBehaviour
         if (act.enemyEndEffect!=null)
         {
             p1.endturneffect.append(act.enemyEndEffect);
-        }        
-
-        
-
-        
-        
-        
-        
-        
-        
-
+        }     
     }
-
     public void EndTurn(Effect endturneffect)
     {
         Effect temp=endturneffect;
@@ -122,15 +120,23 @@ public class Game : MonoBehaviour
             
             temp=temp.next;
         }
+
+
+
     }
     public int ElementBuff(Element element,Character attacked,Player p1)
     {
         //element 無元素 0 火1 水2 冰3 雷4 岩5 風6 草7 冰草8 草冰9 凍結10
-       
         return 0;
-
     }
-
+    public void SummonAttack(Player attacked,Player attacker,Summons s)
+    {
+        int Damage=s.Damage;
+        //反映生效
+        Damage=ElementBuff(s.element,attacked,p1)+Damage;
+        Damage=DamageOperation(attacker,attacked,Damage);
+        attacked.character().hp=attacked.character().hp-Damage;
+    }
 
     // Update is called once per frame
     void Update()

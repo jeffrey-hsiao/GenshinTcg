@@ -11,6 +11,10 @@ public class SummonList:RunEffect
     }
     public Summons summons;
     public int num_of_summons=0;
+    public GetInit()
+    {
+        return summons;
+    }
 
     public int append(Summons s)
     {
@@ -46,7 +50,7 @@ public class SummonList:RunEffect
 
 public class Summons:Effect
 {
-    public int Attack;
+    public int Damage;
     public int time; 
     public Element element;
 
