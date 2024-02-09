@@ -21,6 +21,10 @@ public class Skill
     public Buff SelfBuff;//例如賽諾大招
     public Buff buff;//例如班尼特大招
 
+    public Healer healer;//瞬間治療，例如芭芭拉大招
+
+    public Healer bufhealer;//效果治療，例如七七大招,班尼特大招
+
 
 
     public Skill(int a,int t) //tag=0 普通攻擊 tag=1 元素戰技 tag=2 元素爆發 tag=4 召喚物
@@ -75,8 +79,28 @@ public class Skill
     {
         return SelfBuff;
     }
-    
-   
+    public void SetHealer(Healer input)
+    {
+        if (healer==null)
+            healer=input;
+        else 
+            healer.next=input;
+    }
+    public Healer GetHealer()
+    {
+        return healer;
+    }
+    public void SetBufHealer(Healer input)
+    {
+        if (healer==null)
+            bufhealer=input;
+        else 
+            bufhealer.next=input;
+    }
+    public Healer GetBufHealer()
+    {
+        return bufhealer;
+    }
    
 
 
@@ -99,6 +123,14 @@ public class CharacterSkill:Skill
     public CharacterSkill(int a,int t):base(a,t)
     {
         
+    }
+    public Summons GetSummons()
+    {
+        return summons;
+    }
+    public void SetSummons(Summons s)
+    {
+        summons=s;
     }
     
     

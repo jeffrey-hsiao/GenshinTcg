@@ -25,7 +25,7 @@ public class SummonList:RunEffect
         {
             if (temp.name==s.name)
             {
-                summons=(Summons)temp.Override(s,summons);
+                summons=(Summons)temp.Override(s,summons);//如果存在同名召喚物 則覆寫
                 return 0;
             }
             temp=(Summons)temp.next;
@@ -44,9 +44,11 @@ public class SummonList:RunEffect
     }
     public void Delete(int d)
     {
+        summons.Selfdelete();
+        
         if (d==0)
         {
-            summons.Selfdelete();
+            
             summons.next.prev=null;
 
             summons=(Summons)summons.next;
@@ -56,6 +58,8 @@ public class SummonList:RunEffect
         {
             summons.check();
         }
+
+        
     }
    
 
@@ -91,12 +95,32 @@ public class MonaESummons:Summons
 {
     
     
-    public MonaESummons()
+    public MonaESummons(string n)
     {
+        name=n;
         skill=new Skill(1,4);
         skill.element=new Element(2);
         
         skill.defender = new Reduce("虛影",1,1);
+        
+
+    }
+
+    
+    
+}
+
+public class DionaQSummons:Summons//迪奧娜的召喚物
+{
+    
+    
+    public DionaQSummons(string n)
+    {
+        name=n;
+        skill=new Skill(1,4);//傷害1點 tag=4(召喚物)
+        skill.element=new Element(3);//穿透:0 火:1 水:2 冰:3 雷:4 岩:5 風:6 草:7 物理8
+        
+        skill.healer = new Healer(2);
         
 
     }

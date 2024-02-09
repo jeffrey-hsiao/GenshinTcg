@@ -16,7 +16,7 @@ public class Effect
     }
     public bool check()
     {
-        if (dur<=1)
+        if (dur<1)
         {
             if (this.next==null && this.prev==null)
             {

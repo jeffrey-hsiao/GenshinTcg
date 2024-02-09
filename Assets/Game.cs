@@ -75,7 +75,7 @@ public class Game : MonoBehaviour
         Damage=DamageOperation(p1,p2,Damage);
         //傷害生效
         attacked.hp =attacked.hp -Damage ;
-
+        
 
 
         //召喚物序列
@@ -112,7 +112,11 @@ public class Game : MonoBehaviour
         if (act.enemyEndEffect!=null)
         {
             p1.endturneffect.append(act.enemyEndEffect);
-        }     
+        }
+        if (act.healer !=null)
+        {
+            act.healer.Heal(p1);
+        }
     }
     public void EndTurn(Effect endturneffect)
     {
